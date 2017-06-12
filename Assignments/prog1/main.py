@@ -239,7 +239,7 @@ class DrawGeoJson(object):
         self.mapLatBottom = 0.0     # extreme bottom latitude
         self.mapLatBottomDegree = self.mapLatBottom * math.pi / 180.0 # bottom in degrees
 
-        self.colors = Colors(DIRPATH + '/../Json_Files/colors.json')
+        self.colors = Colors(DIRPATH + '/Json_Files/colors.json')
 
     def convertGeoToPixel(self,lon, lat):
         """
@@ -323,8 +323,8 @@ class DrawingFacade(object):
         more other classes. This 'facade' lets us interface with the 3 classes instantiated
         below.
         """
-        self.sb = StateBorders(DIRPATH + '/../Json_Files/state_borders.json')
-        self.wc = WorldCountries(DIRPATH + '/../Json_Files/countries.geo.json')
+        self.sb = StateBorders(DIRPATH + '/Json_Files/state_borders.json')
+        self.wc = WorldCountries(DIRPATH + '/Json_Files/countries.geo.json')
         self.gd = DrawGeoJson(screen,width,height)
 
     def add_polygons(self,ids):
@@ -438,4 +438,6 @@ if __name__ == '__main__':
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                print(event.pos)
             pygame.display.flip()
