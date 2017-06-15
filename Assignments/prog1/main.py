@@ -1,7 +1,7 @@
 import json
-import os,sys
+import os, sys
 import pygame
-import random 
+import random
 import math
 import pprint as pp
 
@@ -15,8 +15,8 @@ class Colors(object):
     """
     Opens a json file of web colors.
     """
-    def __init__(self,file_name):
-        
+    def __init__(self, file_name):
+
         with open(file_name, 'r') as content_file:
             content = content_file.read()
 
@@ -34,11 +34,11 @@ class Colors(object):
             some_color = c.get_random_color()
             # some_color is now a tuple (r,g,b) representing some lucky color
         """
-        r = random.randint(0,len(self.content)-1)
+        r = random.randint(0, len(self.content)-1)
         c = self.content[r]
-        return (c['rgb'][0],c['rgb'][1],c['rgb'][2])
+        return (c['rgb'][0], c['rgb'][1], c['rgb'][2])
 
-    def get_rgb(self,name):
+    def get_rgb(self, name):
         """
         Returns a named rgb tuple from the color dictionary
         Args:
@@ -52,7 +52,7 @@ class Colors(object):
         """
         for c in self.content:
             if c['name'] == name:
-                return (c['rgb'][0],c['rgb'][1],c['rgb'][2])
+                return (c['rgb'][0], c['rgb'][1], c['rgb'][2])
         return None
 
     def __getitem__(self,color_name):
@@ -72,7 +72,7 @@ class StateBorders(object):
     """
     Opens a json file of the united states borders for each state.
     """
-    def __init__(self,file_name):
+    def __init__(self, file_name):
         """
         Args:
             filename (string) : The path and filename to open
@@ -84,7 +84,7 @@ class StateBorders(object):
 
         self.content = json.loads(content)
 
-    def get_state(self,name):
+    def get_state(self, name):
         """
         Returns a polygon of a single state from the US.
         Args:
@@ -442,13 +442,13 @@ def mercator_projection(latlng,zoom=0,tile_size=256):
     y = ((1 - math.log(math.tan(latlng[1] * math.pi / 180) + 1 / math.cos(latlng[1] * math.pi / 180)) / math.pi) / 2 * pow(2, 0)) * tile_size
    
     return (x,y)
-###############################Abdel Functions ##########################################
+############################### Abdel Functions ##########################################
 #Function to draw a rectange around the state
 def draw_rectangle(place):
-    x_min = 99999999
-    x_max = -99999999
-    y_min = 99999999
-    y_max = -99999999
+    x_min = 9999999999999
+    x_max = -9999999999999
+    y_min = 9999999999999
+    y_max = -9999999999999
     h = w = x = y = 0
     for c in place:
         x,y = c
@@ -456,15 +456,15 @@ def draw_rectangle(place):
             x_min = x
         if y < y_min:
             y_min = y
-        if x < x_max:
+        if x > x_max:
             x_max = x
-        if y < y_min:
+        if y > y_max:
             y_max = y
 
     h = y_max - y_min
     w = x_max - x_min
     pygame.draw.rect(screen, (0,0,0), (x_min, y_min, w, h), 5)
-# Function to display name on screen
+# Function to display State or country name on screen
 def display_name(screen, name, x, y):
     
         text = str(name)
@@ -507,7 +507,7 @@ if __name__ == '__main__':
     # Add countries and states to our drawing facade.
     # df.add_polygons(['FRA','TX','ESP','AFG','NY'])
     # df.add_polygons(['TX','NY','ME','Kenya'])
-    df.add_polygons(['TX','Spain','France','Belgium','Italy','Ireland','Scotland','Greece','Germany','Egypt','Morocco','India'])
+    df.add_polygons(['USA','TX','Spain','France','Belgium','Italy','Ireland','Scotland','Greece','Germany','Egypt','Morocco','India'])
 
 
     # Call draw polygons to "adjust" the regular polygons
@@ -527,11 +527,11 @@ if __name__ == '__main__':
                     x,y = event.pos
                     for place in gd.adjusted_poly_dict[poly]:
                         if point_inside_polygon(x,y,place):
+                            pygame.draw.lines(screen, pygame.Color('blue'), False, place, 3)
                             display_name(screen, poly,x,y)
-                            pygame.draw.lines(screen, pygame.Color('blue'), False, place, 5)
                             draw_rectangle(place)
-
-                    print(event.pos)
+                            
+                    #print(event.pos)
 
             pygame.display.flip()
     
