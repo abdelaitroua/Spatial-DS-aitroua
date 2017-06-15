@@ -528,6 +528,7 @@ if __name__ == '__main__':
                     x,y = event.pos
                     for place in gd.adjusted_poly_dict[poly]:
                         if point_inside_polygon(x,y,place):
+                            screen.fill((255,255,255))
                             pygame.draw.rect(screen, (255,255,255), (0, 0, 300, 70))
                             pygame.draw.lines(screen, pygame.Color('blue'), False, place, 3)
                             display_name(screen, poly,x,y)
