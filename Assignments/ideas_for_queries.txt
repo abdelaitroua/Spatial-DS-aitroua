@@ -1,0 +1,10 @@
+Ideas for queries:
+1 - Find the most populated city closest to the latest recorded active volcano and recommend all airports for a 100 miles
+
+2 - Use https://openflights.org/data.html to recommend a route ,based on a chosen prefferd airline, from wichita falls to a volcanic site based on chosen continent
+ example function would be get_route(united, asia)
+
+3 - download the active database of the most recent active volcanos and cross reference it to earthquakes within 200 mile radius of that area within a year before and after
+    we are trying to determin if an earth quick preceeds eruptions or vise versa and create a warning for the locals.
+Active volcanos db
+https://www.ngdc.noaa.gov/nndc/servlet/ShowDatasets?dataset=102557&search_look=50&display_look=50
