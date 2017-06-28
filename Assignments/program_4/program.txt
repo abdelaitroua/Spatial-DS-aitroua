@@ -1,0 +1,6 @@
+import os, sys
+
+f = file("//path//airport.json")
+
+data = f.read()
+
